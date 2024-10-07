@@ -11,3 +11,14 @@ services:
       - "5432:5432"
     volumes:
       - ./db_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com  # Cambia esto si lo deseas
+      PGADMIN_DEFAULT_PASSWORD: admin123        # Cambia esto si lo deseas
+    ports:
+      - "8080:80"                                # Puerto para acceder a pgAdmin en el navegador
+    depends_on:
+      - postgis                                # Espera a que PostGIS esté disponible antes de iniciar pgAdmin
