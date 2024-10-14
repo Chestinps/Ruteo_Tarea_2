@@ -13,10 +13,10 @@ ejecutar_script() {
 }
 
 # Rutas de los scripts
-ruta_estaciones_bomberos="scripts/estaciones_bomberos/descargar_estaciones_bomberos.py"
-ruta_reductores_velocidad="scripts/reductores_velocidad/descargar_reductores_velocidad.py"
-ruta_bocas_incendio="scripts/bocas_incendio/descargar_bocas_incendio.py"
+estaciones_de_bomberos="Infraestructura/estaciones.py"
+lomos_de_toro="Amenazas/lomos.py"
+grifos="Metadata/grifos.py"
 
-ejecutar_script $ruta_estaciones_bomberos
-ejecutar_script $ruta_reductores_velocidad
-ejecutar_script $ruta_bocas_incendio
+ejecutar_script $estaciones_de_bomberos
+ejecutar_script $lomos_de_toro
+ejecutar_script $grifos
