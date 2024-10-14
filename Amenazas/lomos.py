@@ -1,50 +1,45 @@
 import requests
-import geojson
-import time
+import xml.etree.ElementTree as ET
+import json
 
-def descargar_reductores_velocidad():
-    # Query Overpass
-    consulta = """
-    area[name="Región Metropolitana de Santiago"]->.searchArea;
-    node["traffic_calming"="bump"](area.searchArea);
-    out body;
-    """
-    
-    url = "http://overpass-api.de/api/interpreter"
+# Definir la URL de la API de Overpass
+overpass_url = "http://overpass-api.de/api/interpreter"
 
-    respuesta = requests.post(url, data={'data': consulta})
-    
-    if respuesta.status_code == 200:
-        datos = respuesta.json()
-        return datos
-    else:
-        print(f"Error al descargar datos: {respuesta.status_code}")
-        return None
+# Definir la consulta (Overpass QL)
+overpass_query = """
+area[name="Región Metropolitana de Santiago"]->.searchArea;
+node["traffic_calming"="bump"](area.searchArea);
+out body;
+"""
 
-def guardar_geojson(datos, archivo_salida):
-    features = []
-    for elemento in datos['elements']:
-        if elemento['type'] == 'node':
-            punto = geojson.Point((elemento['lon'], elemento['lat']))
-            feature = geojson.Feature(geometry=punto, properties=elemento.get('tags', {}))
-            features.append(feature)
-    
-    coleccion = geojson.FeatureCollection(features)
+# Realizar la solicitud HTTP a la API
+response = requests.post(overpass_url, data={"data": overpass_query})
 
-    with open(archivo_salida, 'w') as archivo:
-        geojson.dump(coleccion, archivo)
-    
-    print(f"Datos guardados en {archivo_salida}")
+# Verificar si la solicitud fue exitosa
+if response.status_code == 200:
+    # Obtener el contenido de la respuesta en formato texto (XML)
+    xml_data = response.text
 
-def main():
-    print("Descargando reductores de velocidad...")
-    datos = descargar_reductores_velocidad()
-    
-    if datos:
-        archivo_salida = f"reductores_velocidad_santiago_{int(time.time())}.geojson"
-        guardar_geojson(datos, archivo_salida)
-    else:
-        print("No se pudieron obtener los datos.")
+    # Parsear el XML
+    root = ET.fromstring(xml_data)
 
-if __name__ == "__main__":
-    main()
+    # Crear una lista para almacenar los datos procesados
+    bumps = []
+
+    # Recorrer los nodos en el XML
+    for node in root.findall('node'):
+        bump = {
+            "id": node.get("id"),
+            "lat": node.get("lat"),
+            "lon": node.get("lon"),
+            "traffic_calming": "bump"
+        }
+        bumps.append(bump)
+
+    # Guardar los datos procesados en un archivo JSON
+    with open('reductores_velocidad.json', 'w') as json_file:
+        json.dump(bumps, json_file, indent=4)
+
+    print("Consulta exitosa. Datos guardados en 'reductores_velocidad.json'.")
+else:
+    print(f"Error en la consulta. Código de estado: {response.status_code}")
