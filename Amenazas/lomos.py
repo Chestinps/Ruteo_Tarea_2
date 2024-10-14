@@ -42,8 +42,4 @@ if response.status_code == 200:
 
     print("Consulta exitosa. Datos guardados en 'reductores_velocidad.json'.")
 else:
-<<<<<<< HEAD
     print(f"Error en la consulta. Código de estado: {response.status_code}")
-=======
-    print(f"Error en la consulta. Código de estado: {response.status_code}")
->>>>>>> bcd6d3b04c04032e850d570af2d3a7f8de2d4d58
