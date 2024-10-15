@@ -22,10 +22,10 @@ try:
         response_data = response.json()
 
         # Guardamos los datos en un archivo JSON
-        with open('respuesta_api.json', 'w', encoding='utf-8') as json_file:
+        with open('accidentes.json', 'w', encoding='utf-8') as json_file:
             json.dump(response_data, json_file, ensure_ascii=False, indent=4)
         
-        print("Datos guardados en 'respuesta_api.json'")
+        print("Datos guardados en 'accidentes.json'")
     else:
         print(f"Error en la solicitud: {response.status_code}")
 
