@@ -59,7 +59,7 @@ def main():
     datos = descargar_estaciones_bomberos()
     
     if datos:
-        archivo_salida = f"estaciones_bomberos_santiago_{int(time.time())}.geojson"
+        archivo_salida = f"estaciones.geojson"
         guardar_geojson(datos, archivo_salida)
     else:
         print("No se pudieron obtener los datos.")

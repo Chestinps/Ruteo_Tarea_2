@@ -40,7 +40,7 @@ def cargar_accidentes(cursor):
         print("Error: El archivo JSON está mal formado.")
 
 def cargar_estaciones_bomberos(cursor):
-    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Infraestructura', 'estaciones_bomberos_santiago_1728958757.geojson')
+    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Infraestructura', 'estaciones.geojson')
     try:
         with open(ruta_archivo, 'r') as json_file:
             data = json.load(json_file)
@@ -54,7 +54,7 @@ def cargar_estaciones_bomberos(cursor):
         print(f"Error: No se encontró el archivo en la ruta: {ruta_archivo}")
 
 def cargar_grifos(cursor):
-    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Metadata', 'bocas_incendio_santiago_1728958821.geojson')
+    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Metadata', 'grifos.geojson')
     try:
         with open(ruta_archivo, 'r') as json_file:
             data = json.load(json_file)

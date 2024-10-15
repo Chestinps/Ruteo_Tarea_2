@@ -61,7 +61,7 @@ def main():
     datos = descargar_grifos()
     
     if datos:
-        archivo_salida = f"bocas_incendio_santiago_{int(time.time())}.geojson"
+        archivo_salida = f"grifos.geojson"
         guardar_geojson(datos, archivo_salida)
     else:
         print("No se pudieron obtener los datos.")
