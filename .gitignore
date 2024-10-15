@@ -1,0 +1,7 @@
+# Ignorar la carpeta db_data donde está la base de datos
+db/db_data/
+
+# Ignorar otros archivos temporales o innecesarios
+*.log
+*.pyc
+__pycache__/
