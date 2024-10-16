@@ -1,6 +1,13 @@
+import os
 import requests
 import xml.etree.ElementTree as ET
 import json
+
+# Obtener la ruta actual donde se encuentra el script lomos.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Definir la ruta completa para el archivo JSON
+json_path = os.path.join(current_dir, 'reductores_velocidad.json')
 
 # Definir la URL de la API de Overpass
 overpass_url = "http://overpass-api.de/api/interpreter"
@@ -36,10 +43,10 @@ if response.status_code == 200:
         }
         bumps.append(bump)
 
-    # Guardar los datos procesados en un archivo JSON
-    with open('reductores_velocidad.json', 'w') as json_file:
+    # Guardar los datos procesados en un archivo JSON en la misma carpeta que el script
+    with open(json_path, 'w') as json_file:
         json.dump(bumps, json_file, indent=4)
 
-    print("Consulta exitosa. Datos guardados en 'reductores_velocidad.json'.")
+    print(f"Consulta exitosa. Datos guardados en '{json_path}'.")
 else:
     print(f"Error en la consulta. Código de estado: {response.status_code}")

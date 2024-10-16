@@ -1,6 +1,6 @@
+import os
 import requests
 import geojson
-import time
 import xml.etree.ElementTree as ET
 
 def descargar_estaciones_bomberos():
@@ -59,7 +59,13 @@ def main():
     datos = descargar_estaciones_bomberos()
     
     if datos:
-        archivo_salida = f"estaciones.geojson"
+        # Obtener la ruta actual donde se encuentra el script estaciones.py
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # Definir la ruta completa para el archivo GeoJSON
+        archivo_salida = os.path.join(current_dir, "estaciones.geojson")
+        
+        # Guardar el archivo en la misma carpeta que estaciones.py
         guardar_geojson(datos, archivo_salida)
     else:
         print("No se pudieron obtener los datos.")

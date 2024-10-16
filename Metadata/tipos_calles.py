@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 
@@ -38,11 +39,17 @@ if response.status_code == 200:
             }
             optimized_data.append(way_info)
     
-    # Guarda los resultados optimizados en un archivo JSON
-    with open('calles.json', 'w') as f:
+    # Obtener la ruta actual donde se encuentra el script tipos_calles.py
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Definir la ruta completa para el archivo JSON
+    json_path = os.path.join(current_dir, 'calles.json')
+    
+    # Guardar los resultados optimizados en un archivo JSON en la misma carpeta
+    with open(json_path, 'w') as f:
         json.dump(optimized_data, f, indent=4)
     
-    print("Archivo optimizado guardado como 'santiago_highways_optimized.json'")
+    print(f"Archivo optimizado guardado como '{json_path}'")
     
 else:
     print(f"Error en la solicitud: {response.status_code}")

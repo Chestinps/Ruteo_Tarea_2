@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 
@@ -17,11 +18,17 @@ def obtener_datos_trafico(api_key, version, style, zoom, output_format, coordina
         if response.status_code == 200:
             data = response.json()
 
-            with open(output_file, 'w') as json_file:
+            # Obtener la ruta actual donde se encuentra el script traffic.py
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            
+            # Definir la ruta completa para el archivo JSON
+            json_path = os.path.join(current_dir, output_file)
+
+            # Guardar el archivo en la misma carpeta que traffic.py
+            with open(json_path, 'w') as json_file:
                 json.dump(data, json_file, indent=4)
 
-            print(f"Datos guardados correctamente en {output_file}")
-
+            print(f"Datos guardados correctamente en {json_path}")
 
             flow_data = data.get('flowSegmentData', {})
             velocidad_actual = flow_data.get('currentSpeed')
@@ -51,6 +58,6 @@ style = 'relative0'
 zoom = '10'
 output_format = 'json'
 coordinates = [52.41072, 4.84239]
-output_file = 'trafico.json'
 
-obtener_datos_trafico(api_key, version, style, zoom, output_format, coordinates, output_file=output_file)
+# Ahora el archivo se guardará en la misma carpeta que el script
+obtener_datos_trafico(api_key, version, style, zoom, output_format, coordinates)
