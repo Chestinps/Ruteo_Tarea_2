@@ -107,6 +107,32 @@ def cargar_trafico(cursor):
     except Exception as e:
         print(f"Ocurrió un error: {e}")
 
+def cargar_tipos_calles(cursor):
+    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Metadata', 'calles.json')
+    try:
+        with open(ruta_archivo, 'r') as json_file:
+            data = json.load(json_file)
+            for calle in data:
+                way_id = calle['way_id']
+                nodes = calle['nodes']
+                street_name = calle['street_name']
+                highway_type = calle['highway_type']
+                highway_value = calle['highway_value']
+                lanes = calle['lanes']
+
+                # Crear la consulta SQL para insertar en la tabla tipos_calles
+                cursor.execute("""
+                    INSERT INTO tipos_calles (way_id, nodes, street_name, highway_type, highway_value, lanes)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (way_id) DO NOTHING;  -- Evita duplicados
+                """, (way_id, nodes, street_name, highway_type, highway_value, lanes))
+    except FileNotFoundError:
+        print(f"Error: No se encontró el archivo en la ruta: {ruta_archivo}")
+    except json.JSONDecodeError:
+        print(f"Error: El archivo JSON está mal formado.")
+    except Exception as e:
+        print(f"Ocurrió un error al cargar tipos_calles: {e}")
+
 
 def main():
     # Conectar a la base de datos
@@ -125,6 +151,7 @@ def main():
     cargar_estaciones_bomberos(cursor)
     cargar_grifos(cursor)
     cargar_trafico(cursor)
+    cargar_tipos_calles(cursor) 
 
     # Hacer commit de los cambios y cerrar conexión
     conn.commit()
