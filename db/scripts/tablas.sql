@@ -40,3 +40,12 @@ CREATE TABLE trafico (
     confidence DOUBLE PRECISION,
     road_closure BOOLEAN
 );
+
+CREATE TABLE tipos_calles (
+    way_id BIGINT PRIMARY KEY,
+    nodes BIGINT[],
+    street_name VARCHAR(255),
+    highway_type VARCHAR(255),
+    highway_value VARCHAR(255),
+    lanes VARCHAR(255)
+);
