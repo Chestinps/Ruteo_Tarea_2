@@ -6,6 +6,23 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+// Variable global para las estaciones de bomberos
+let fireStationsLayer;
+
+// Cargar los datos GeoJSON de estaciones de bomberos
+function loadFireStations() {
+    fetch('/data/fire_stations')
+        .then(response => response.json())
+        .then(data => {
+            fireStationsLayer = L.geoJSON(data, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup('<strong>' + feature.properties.name + '</strong><br>' + feature.properties['addr:street']);
+                }
+            });
+        })
+        .catch(error => console.error('Error al cargar las estaciones de bomberos:', error));
+}
+
 // Lista de archivos GeoJSON de calles de las comunas
 const streetsFiles = {
     "cerrillos": '/data/streets_cerrillos',
@@ -52,7 +69,6 @@ function loadStreets() {
         fetch(file)
             .then(response => response.json())
             .then(data => {
-                // Añadir las calles al mapa
                 L.geoJSON(data, {
                     style: {
                         color: 'red',
@@ -66,5 +82,33 @@ function loadStreets() {
     }
 }
 
-// Llamar la función cuando se haga clic en el botón
-document.querySelector('button[type="button"]').addEventListener('click', loadStreets);
+// Cargar la ruta óptima (solo si el checkbox está marcado)
+document.getElementById('toggleRoute').addEventListener('change', function () {
+    if (this.checked) {
+        // Lógica para cargar la ruta (en este ejemplo, no se tiene implementado)
+    }
+});
+
+// Cargar las estaciones de bomberos y calles según el estado del checkbox
+document.getElementById('toggleFireStations').addEventListener('change', function () {
+    if (this.checked) {
+        if (fireStationsLayer) {
+            fireStationsLayer.addTo(map);  // Mostrar las estaciones de bomberos
+        }
+    } else {
+        if (fireStationsLayer) {
+            map.removeLayer(fireStationsLayer);  // Ocultar las estaciones de bomberos
+        }
+    }
+});
+
+document.getElementById('toggleStreets').addEventListener('change', function () {
+    if (this.checked) {
+        loadStreets();
+    } else {
+        // Eliminar las calles del mapa (esto podría ser más eficiente si usas un layerGroup para las calles)
+    }
+});
+
+// Llamar a la función para cargar las estaciones de bomberos al cargar el mapa
+loadFireStations();
