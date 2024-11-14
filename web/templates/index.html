@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Stations Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <form id="coordinate-form">
+            <div class="form-row">
+                <label for="source-latitude">Source Latitude:</label>
+                <input type="text" id="source-latitude" name="source-latitude" required>
+                <label for="source-longitude">Source Longitude:</label>
+                <input type="text" id="source-longitude" name="source-longitude" required>
+            </div>
+            <div class="form-row">
+                <label for="destination-latitude">Destination Latitude:</label>
+                <input type="text" id="destination-latitude" name="destination-latitude" required>
+                <label for="destination-longitude">Destination Longitude:</label>
+                <input type="text" id="destination-longitude" name="destination-longitude" required>
+            </div>
+            <div class="form-row">
+                <label for="comuna-select">Select Comuna:</label>
+                <select id="comuna-select" name="comuna-select">
+                    <option value="cerrillos">Cerrillos</option>
+                    <option value="cerro_navia">Cerro Navia</option>
+                    <option value="conchali">Conchalí</option>
+                    <option value="el_bosque">El Bosque</option>
+                    <option value="estacion_central">Estación Central</option>
+                    <option value="huechuraba">Huechuraba</option>
+                    <option value="independencia">Independencia</option>
+                    <option value="la_cisterna">La Cisterna</option>
+                    <option value="la_florida">La Florida</option>
+                    <option value="la_granja">La Granja</option>
+                    <option value="la_pintana">La Pintana</option>
+                    <option value="la_reina">La Reina</option>
+                    <option value="las_condes">Las Condes</option>
+                    <option value="lo_barnechea">Lo Barnechea</option>
+                    <option value="lo_espejo">Lo Espejo</option>
+                    <option value="lo_prado">Lo Prado</option>
+                    <option value="macul">Macul</option>
+                    <option value="maipu">Maipú</option>
+                    <option value="ñunoa">Ñuñoa</option>
+                    <option value="pedro_aguirre_cerda">Pedro Aguirre Cerda</option>
+                    <option value="penalolen">Peñalolén</option>
+                    <option value="providencia">Providencia</option>
+                    <option value="pudahuel">Pudahuel</option>
+                    <option value="puente_alto">Puente Alto</option>
+                    <option value="quilicura">Quilicura</option>
+                    <option value="quinta_normal">Quinta Normal</option>
+                    <option value="recoleta">Recoleta</option>
+                    <option value="renca">Renca</option>
+                    <option value="san_joaquin">San Joaquín</option>
+                    <option value="san_miguel">San Miguel</option>
+                    <option value="san_ramon">San Ramón</option>
+                    <option value="santiago">Santiago</option>
+                    <option value="vitacura">Vitacura</option>
+                </select>
+                <button type="button" onclick="loadStreets()">Load Streets</button>
+            </div>
+        </form>
+    </div>
+    
+    <h1>Fire Stations in the Area</h1>
+
+    <!-- Mapa -->
+    <div id="map" style="height: 600px;"></div>
+
+    <!-- Control de capas (layer-control) -->
+    <div class="layer-control">
+        <label><input type="checkbox" id="toggleFireStations" checked> Estaciones de Bomberos</label><br>
+        <label><input type="checkbox" id="toggleStreets" checked> Calles de la Comuna Seleccionada</label><br>
+        <label><input type="checkbox" id="toggleRoute" checked> Ruta Óptima</label>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+    <script>
+        // Inicializar el mapa
+        var map = L.map('map').setView([-33.45, -70.65], 10); // Coordenadas de Santiago
+
+        // Cargar el layer de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Cargar los datos GeoJSON de estaciones de bomberos
+        fetch('/data/fire_stations')
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup('<strong>' + feature.properties.name + '</strong><br>' + feature.properties['addr:street']);
+                    }
+                }).addTo(map);
+            });
+
+        // Lista de archivos GeoJSON de calles de las comunas
+        const streetsFiles = {
+            "cerrillos": '/data/streets_cerrillos',
+            "cerro_navia": '/data/streets_cerro_navia',
+            "conchali": '/data/streets_conchali',
+            "el_bosque": '/data/streets_el_bosque',
+            "estacion_central": '/data/streets_estacion_central',
+            "huechuraba": '/data/streets_huechuraba',
+            "independencia": '/data/streets_independencia',
+            "la_cisterna": '/data/streets_la_cisterna',
+            "la_florida": '/data/streets_la_florida',
+            "la_granja": '/data/streets_la_granja',
+            "la_pintana": '/data/streets_la_pintana',
+            "la_reina": '/data/streets_la_reina',
+            "las_condes": '/data/streets_las_condes',
+            "lo_barnechea": '/data/streets_lo_barnechea',
+            "lo_espejo": '/data/streets_lo_espejo',
+            "lo_prado": '/data/streets_lo_prado',
+            "macul": '/data/streets_macul',
+            "maipu": '/data/streets_maipú',
+            "ñunoa": '/data/streets_ñuñoa',
+            "pedro_aguirre_cerda": '/data/streets_pedro_aguirre_cerda',
+            "penalolen": '/data/streets_peñalolén',
+            "providencia": '/data/streets_providencia',
+            "pudahuel": '/data/streets_pudahuel',
+            "puente_alto": '/data/streets_puente_alto',
+            "quilicura": '/data/streets_quilicura',
+            "quinta_normal": '/data/streets_quinta_normal',
+            "recoleta": '/data/streets_recoleta',
+            "renca": '/data/streets_renca',
+            "san_joaquin": '/data/streets_san_joaquín',
+            "san_miguel": '/data/streets_san_miguel',
+            "san_ramon": '/data/streets_san_ramón',
+            "santiago": '/data/streets_santiago',
+            "vitacura": '/data/streets_vitacura'
+        };
+
+        // Cargar las calles de la comuna seleccionada
+        function loadStreets() {
+            const comuna = document.getElementById('comuna-select').value;
+            const file = streetsFiles[comuna];
+
+            if (file) {
+                fetch(file)
+                    .then(response => response.json())
+                    .then(data => {
+                        L.geoJSON(data, {
+                            style: function (feature) {
+                                return {
+                                    color: 'red', // Color de las rutas
+                                    weight: 2,    // Grosor de las rutas
+                                    opacity: 1    // Opacidad de las rutas
+                                };
+                            }
+                        }).addTo(map);
+                    })
+                    .catch(error => console.error('Error al cargar el archivo GeoJSON de calles:', error));
+            } else {
+                console.error("Comuna no encontrada:", comuna);
+            }
+        }
+
+        // Cargar la ruta óptima (solo si el checkbox está marcado)
+        document.getElementById('toggleRoute').addEventListener('change', function () {
+            if (this.checked) {
+                // Lógica para cargar la ruta (en este ejemplo, no se tiene implementado)
+            }
+        });
+
+        // Cargar las estaciones de bomberos y calles según el estado del checkbox
+        document.getElementById('toggleFireStations').addEventListener('change', function () {
+            if (this.checked) {
+                // Mostrar estaciones de bomberos
+            } else {
+                // Ocultar estaciones de bomberos
+            }
+        });
+
+        document.getElementById('toggleStreets').addEventListener('change', function () {
+            if (this.checked) {
+                loadStreets();
+            } else {
+                // Eliminar las calles del mapa
+            }
+        });
+    </script>
+</body>
+</html>

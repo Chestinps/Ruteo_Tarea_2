@@ -1,0 +1,1017 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.575775,
+                    -33.60665
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuartel General del Cuerpo de Bomberos de Puente Alto"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.5146315,
+                    -33.3648662
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Decimonovena Compa\u00f1\u00eda del Cuerpo de Bomberos de Santiago"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6524887,
+                    -33.4923656
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Tercera Compa\u00f1\u00eda del Cuerpo de Bomberos Metropolitano Sur",
+                "operator": "Cuerpo de Bomberos Metropolitano Sur"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7756986,
+                    -33.5335744
+                ]
+            },
+            "properties": {
+                "addr:housenumber": "1575",
+                "addr:street": "Rene Olivares Becerra",
+                "amenity": "fire_station",
+                "name": "Sexta Compa\u00f1\u00eda del Cuerpo de Bomberos de Maip\u00fa"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7470742,
+                    -33.8135626
+                ]
+            },
+            "properties": {
+                "addr:street": "Avenida Presidente Prieto 380",
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de Paine"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6432157,
+                    -33.8332352
+                ]
+            },
+            "properties": {
+                "addr:street": "Carlo de Gavardo Prohens",
+                "amenity": "fire_station",
+                "name": "Tercera Compa\u00f1\u00eda del Cuerpo de Bomberos de Paine"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6557422,
+                    -33.2748543
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Quinta Compa\u00f1\u00eda del Cuerpo de Bomberos de Colina Lampa"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.8801368,
+                    -33.8746729
+                ]
+            },
+            "properties": {
+                "addr:street": "Ruta G-54 12822",
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de Paine"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.8993153,
+                    -33.6080474
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de Pe\u00f1aflor"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7955907,
+                    -33.5643552
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Quinta Compa\u00f1\u00eda del Cuerpo de Bomberos de Pe\u00f1aflor"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7730983,
+                    -33.5457172
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de Maip\u00fa",
+                "source": "http://www.bomberosmaipu.cl/?page_id=70"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.1512239,
+                    -33.6505166
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de Melipilla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.81521,
+                    -33.5689622
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de Pe\u00f1aflor"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.9385126,
+                    -33.6707578
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Bomberos Talagante"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6595435,
+                    -33.5175711
+                ]
+            },
+            "properties": {
+                "addr:housenumber": "15",
+                "addr:street": "Mohamed Bathich Malek",
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos Metropolitano Sur"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6678431,
+                    -33.4498022
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Und\u00e9cima Compa\u00f1\u00eda del Cuerpo de Bomberos de Santiago",
+                "source": "Reconocimiento cartogr\u00e1fico 2016 por KG."
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7393437,
+                    -33.731468
+                ]
+            },
+            "properties": {
+                "addr:city": "Buin",
+                "addr:housenumber": "275",
+                "addr:street": "Condell",
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de Buin"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7373275,
+                    -33.7628136
+                ]
+            },
+            "properties": {
+                "addr:city": "Buin",
+                "addr:housenumber": "428",
+                "addr:street": "Hermanos Carrera",
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de Buin"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6431868,
+                    -33.4372652
+                ]
+            },
+            "properties": {
+                "addr:city": "Santiago",
+                "addr:housenumber": "411",
+                "addr:street": "Jos\u00e9 Miguel de la Barra",
+                "amenity": "fire_station",
+                "check_date": "2024-09-25",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de Santiago"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6801391,
+                    -33.570755
+                ]
+            },
+            "properties": {
+                "addr:city": "El Bosque",
+                "addr:country": "CL",
+                "addr:street": "Avenida Central",
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de San Bernardo",
+                "operator": "Bomba Chile"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7045273,
+                    -33.5950485
+                ]
+            },
+            "properties": {
+                "addr:city": "San Bernardo",
+                "addr:street": "Ram\u00f3n Freire",
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de San Bernardo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6474578,
+                    -33.4326566
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de Santiago"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7040215,
+                    -33.5948221
+                ]
+            },
+            "properties": {
+                "addr:city": "San Bernardo",
+                "addr:housenumber": "459",
+                "addr:street": "Avenida Covadonga",
+                "amenity": "fire_station",
+                "name": "Central de Alarmas de Bomberos de San Bernardo",
+                "name:en": "San Bernardo Fire Station",
+                "opening_hours": "24/7",
+                "phone": "+56 22 859 2594"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6583413,
+                    -33.4369378
+                ]
+            },
+            "properties": {
+                "addr:housenumber": "1495",
+                "addr:street": "Santo Domingo",
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de Santiago"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.1333362,
+                    -33.403906
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de Curacav\u00ed"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7079411,
+                    -33.6389117
+                ]
+            },
+            "properties": {
+                "addr:city": "San Bernardo",
+                "addr:street": "Avenida Portales",
+                "amenity": "fire_station",
+                "name": "Quinta Compa\u00f1\u00eda de Cuerpo de Bomberos de San Bernardo",
+                "name:en": "Fifth Company of San Bernardo Fire Brigades",
+                "name:es": "Quinta Compa\u00f1\u00eda de Cuerpo de Bomberos de San Bernardo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.195637,
+                    -33.5710837
+                ]
+            },
+            "properties": {
+                "addr:city": "Bollenar",
+                "addr:housenumber": "997",
+                "addr:street": "Anselmo Alarc\u00f3n",
+                "amenity": "fire_station",
+                "name": "Quinta Compa\u00f1\u00eda del Cuerpo de Bomberos de Melipilla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7576135,
+                    -33.6315724
+                ]
+            },
+            "properties": {
+                "addr:city": "Calera de Tango",
+                "addr:street": "Avenida Calera de Tango",
+                "amenity": "fire_station",
+                "check_date": "2024-09-25",
+                "name": "Tercera Compa\u00f1\u00eda del Cuerpo de Bomberos del Maipo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6509728,
+                    -33.4362529
+                ]
+            },
+            "properties": {
+                "addr:city": "Santiago",
+                "addr:country": "CL",
+                "addr:housenumber": "978",
+                "addr:street": "Santo Domingo",
+                "amenity": "fire_station",
+                "email": "contacto.mubo@cbs.cl",
+                "name": "Museo de Bomberos de Santiago (MUBO)",
+                "opening_hours": "Tu-Sa 10:00-18:00",
+                "tourism": "museum",
+                "website": "https://mubo.cl/",
+                "wikidata": "Q76824234",
+                "wikimedia_commons": "Category:Museo de Bomberos de Santiago",
+                "wikipedia": "es:Museo de Bomberos de Santiago"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7484603,
+                    -33.4701917
+                ]
+            },
+            "properties": {
+                "addr:city": "Maip\u00fa",
+                "addr:street": "Avenida El Descanso",
+                "amenity": "fire_station",
+                "name": "Septima Compa\u00f1\u00eda del Cuerpo de Bomberos de Maip\u00fa"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.5603778,
+                    -33.9480299
+                ]
+            },
+            "properties": {
+                "addr:street": "Tercera Compa\u00f1\u00eda del Cuerpo de Bomberos de San Pedro",
+                "amenity": "fire_station",
+                "name": "Tercera Compa\u00f1\u00eda del Cuerpo de Bomberos de San Pedro de Melipilla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.3519359,
+                    -33.6384636
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1ia del Cuerpo de Bomberos de San Jose de Maipo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7384334,
+                    -33.8031826
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuartel General del Cuerpo Bomberos de Paine",
+                "operator": "Cuerpo bomberos de Paine"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.623083,
+                    -33.4146181
+                ]
+            },
+            "properties": {
+                "addr:city": "Recoleta",
+                "addr:street": "Zona Operativa ParqueMet",
+                "amenity": "fire_station",
+                "name": "Brigada Roble 18 Conaf",
+                "operator": "Corporaci\u00f3n Nacional Forestal"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6722862,
+                    -33.4604512
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Decimos\u00e9ptima Compa\u00f1\u00eda del Cuerpo de Bomberos de Santiago"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.3516638,
+                    -33.6457356
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuartel General del Cuerpo de Bomberos de San Jos\u00e9 de Maipo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.3355391,
+                    -33.6940418
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de San Jos\u00e9 de Maipo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.4502665,
+                    -33.5771719
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1ia del Cuerpo de Bomberos de San Jose de Maipo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.4861377,
+                    -33.5909384
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Tercera Compa\u00f1ia del Cuerpo de Bomberos de San Jose de Maipo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.8993342,
+                    -33.6080983
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuartel General del Cuerpo de Bomberos de Pe\u00f1aflor"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.9022624,
+                    -33.6050852
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de Pe\u00f1aflor"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7083283,
+                    -33.511383
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Novena Compa\u00f1\u00eda del Cuerpo de Bomberos de Maip\u00fa"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6780318,
+                    -33.5189526
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Octava Compa\u00f1\u00eda del Cuerpo de Bomberos Metropolitano Sur"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7695381,
+                    -33.2929232
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "CONAF Brigada Roble 9"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7433969,
+                    -33.7140236
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Sexta Compa\u00f1\u00eda del Cuerpo de Bomberos de Buin"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.7633525,
+                    -33.6325495
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "D\u00e9cima Compa\u00f1\u00eda del Cuerpo de Bomberos de San Bernardo"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.3650686,
+                    -33.8370079
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Sexta Compa\u00f1\u00eda del Cuerpo de Bomberos de Melipilla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.3297009,
+                    -33.7613369
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "S\u00e9ptima Compa\u00f1\u00eda del Cuerpo de Bomberos de Melipilla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.4862159,
+                    -33.8628032
+                ]
+            },
+            "properties": {
+                "addr:street": "Ruta de la Fruta H-66, KM 103,6",
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de San Pedro de Melipilla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.8940136,
+                    -33.3997394
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Novena Compa\u00f1\u00eda del Cuerpo de Bomberos de Quinta Normal"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.9925473,
+                    -33.5074518
+                ]
+            },
+            "properties": {
+                "addr:street": "Camino Cuesta Barriga",
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de Curacav\u00ed"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.1230743,
+                    -33.3966179
+                ]
+            },
+            "properties": {
+                "addr:street": "Las Araucarias 437",
+                "amenity": "fire_station",
+                "name": "Tercera Compa\u00f1\u00eda del Cuerpo de Bomberos de Curacav\u00ed"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.1147004,
+                    -33.5138322
+                ]
+            },
+            "properties": {
+                "addr:street": "Avenida Francisco Costabal Eche\u00f1ique 221",
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de Maria Pinto"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6938082,
+                    -33.5330846
+                ]
+            },
+            "properties": {
+                "addr:street": "Astaburuaga 9360",
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos Metropolitano Sur"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.929775,
+                    -33.0824
+                ]
+            },
+            "properties": {
+                "addr:housenumber": "57",
+                "addr:street": "Emilio Valle",
+                "amenity": "fire_station",
+                "name": "Cuartel General del Cuerpo de Bomberos de Til Til",
+                "operator": "Cuerpo de Bomberos de Til Til"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.1017304,
+                    -34.032294
+                ]
+            },
+            "properties": {
+                "addr:street": "21 de Mayo 300-398",
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de Villa Alhu\u00e9"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.0245997,
+                    -33.6870296
+                ]
+            },
+            "properties": {
+                "addr:city": "El Monte",
+                "addr:housenumber": "1290",
+                "addr:street": "Avenida Los Libertadores",
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de El Monte"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.981974,
+                    -33.681374
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de El Monte"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.2172205,
+                    -34.031123
+                ]
+            },
+            "properties": {
+                "addr:street": "Ruta G-92-H",
+                "amenity": "fire_station",
+                "name": "Segunda Compa\u00f1\u00eda del Cuerpo de Bomberos de Villa Alhu\u00e9",
+                "operator": "Cuerpo de Bomberos de Villa Alhu\u00e9"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.0180444,
+                    -34.0342926
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Tercera Compa\u00f1\u00eda del Cuerpo de Bomberos de Villa Alhu\u00e9"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.0667425,
+                    -33.9840657
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de Villa Alhu\u00e9"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.9074408,
+                    -33.5372311
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Sexta Compa\u00f1\u00eda del Cuerpo de Bomberos de Pe\u00f1aflor"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -71.4545104,
+                    -33.9815947
+                ]
+            },
+            "properties": {
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de San Pedro de Melipilla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6360677,
+                    -33.521927
+                ]
+            },
+            "properties": {
+                "addr:city": "La Granja",
+                "addr:housenumber": "6590",
+                "addr:street": "Avenida Santa Rosa",
+                "amenity": "fire_station",
+                "name": "Primera Compa\u00f1\u00eda del Cuerpo de Bomberos de La Granja",
+                "operator": "Cuerpo de Bomberos de La Granja"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6355767,
+                    -33.5349021
+                ]
+            },
+            "properties": {
+                "addr:city": "San Ram\u00f3n",
+                "addr:housenumber": "2083",
+                "addr:street": "Venezuela",
+                "amenity": "fire_station",
+                "name": "Cuarta Compa\u00f1\u00eda del Cuerpo de Bomberos de La Granja",
+                "operator": "Cuerpo de Bomberos de La Granja"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6353311,
+                    -33.5330628
+                ]
+            },
+            "properties": {
+                "addr:city": "San Ram\u00f3n",
+                "addr:housenumber": "2095",
+                "addr:street": "Argentina",
+                "amenity": "fire_station",
+                "name": "Cuartel General del Cuerpo de Bomberos de La Granja",
+                "operator": "Cuerpo de Bomberos de La Granja"
+            }
+        }
+    ]
+}

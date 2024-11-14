@@ -108,30 +108,51 @@ def cargar_trafico(cursor):
         print(f"Ocurrió un error: {e}")
 
 def cargar_tipos_calles(cursor):
-    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Metadata', 'calles.json')
+    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Metadata', 'calles.geojson')
     try:
         with open(ruta_archivo, 'r') as json_file:
             data = json.load(json_file)
-            for calle in data:
-                way_id = calle['way_id']
-                nodes = calle['nodes']
-                street_name = calle['street_name']
-                highway_type = calle['highway_type']
-                highway_value = calle['highway_value']
-                lanes = calle['lanes']
 
-                # Crear la consulta SQL para insertar en la tabla tipos_calles
-                cursor.execute("""
-                    INSERT INTO tipos_calles (way_id, nodes, street_name, highway_type, highway_value, lanes)
-                    VALUES (%s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (way_id) DO NOTHING;  -- Evita duplicados
-                """, (way_id, nodes, street_name, highway_type, highway_value, lanes))
+            # Imprimir solo la estructura de las claves y valores principales para depuración
+            if isinstance(data, dict):
+                print("Claves principales del archivo GeoJSON:", list(data.keys()))
+
+            # Verificar si data contiene una clave 'features', que es común en los archivos GeoJSON
+            if isinstance(data, dict) and 'features' in data:
+                features = data['features']
+                # Verificar si 'features' es una lista de diccionarios
+                if isinstance(features, list):
+                    for feature in features:
+                        # Verificar si cada elemento en 'features' es un diccionario
+                        if isinstance(feature, dict):
+                            properties = feature.get('properties', {})
+                            way_id = properties.get('way_id')
+                            nodes = properties.get('nodes', [])
+                            street_name = properties.get('street_name')
+                            highway_type = properties.get('highway_type')
+                            highway_value = properties.get('highway_value')
+                            lanes = properties.get('lanes')
+
+                            # Insertar en la base de datos
+                            cursor.execute("""
+                                INSERT INTO tipos_calles (way_id, nodes, street_name, highway_type, highway_value, lanes)
+                                VALUES (%s, %s, %s, %s, %s, %s)
+                                ON CONFLICT (way_id) DO NOTHING;  -- Evita duplicados
+                            """, (way_id, nodes, street_name, highway_type, highway_value, lanes))
+                        else:
+                            print(f"Advertencia: Se encontró un elemento no esperado en 'features': {feature}")
+                else:
+                    print("Error: La clave 'features' no contiene una lista.")
+            else:
+                print("Error: El archivo no contiene una clave 'features' o la estructura no es la esperada.")
     except FileNotFoundError:
         print(f"Error: No se encontró el archivo en la ruta: {ruta_archivo}")
     except json.JSONDecodeError:
         print(f"Error: El archivo JSON está mal formado.")
     except Exception as e:
         print(f"Ocurrió un error al cargar tipos_calles: {e}")
+
+
 
 
 def main():

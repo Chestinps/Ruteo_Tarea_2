@@ -16,6 +16,9 @@ psql -U admin -d ruteo_db
 O también puedes hacerlo con este comando que accede directamente al contenedor y a la base de datos:
 sudo docker exec -it postgis-container psql -U admin -d ruteo_db
 
+Crear las tablas, debe ingresar a la carpeta scripts y ejecutar este comando:
+psql -U admin -d ruteo_db -h localhost -p 5432 -f tablas.sql
+
 Para ver las tablas disponibles, ingresa:
 \dt
 

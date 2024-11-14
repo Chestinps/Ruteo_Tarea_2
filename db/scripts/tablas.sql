@@ -49,3 +49,18 @@ CREATE TABLE tipos_calles (
     highway_value VARCHAR(255),
     lanes VARCHAR(255)
 );
+
+CREATE TABLE nodes (
+    id SERIAL PRIMARY KEY,
+    geom GEOGRAPHY(Point, 4326),  -- Ubicación del nodo en formato geométrico
+    lat DOUBLE PRECISION,
+    lon DOUBLE PRECISION
+);
+CREATE TABLE edges (
+    id SERIAL PRIMARY KEY,
+    source INTEGER,               -- Nodo de inicio
+    target INTEGER,               -- Nodo de destino
+    cost DOUBLE PRECISION,        -- Peso de la arista (distancia, en metros)
+    reverse_cost DOUBLE PRECISION,-- Peso en dirección inversa (para calles de un solo sentido o bidireccionales)
+    geom GEOGRAPHY(LineString, 4326)
+);
