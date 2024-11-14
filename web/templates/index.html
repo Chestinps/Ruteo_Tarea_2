@@ -59,7 +59,8 @@
                     <option value="santiago">Santiago</option>
                     <option value="vitacura">Vitacura</option>
                 </select>
-                <button type="button" onclick="loadStreets()">Load Streets</button>
+                <label for="load-streets-btn" class="button-label">Load Streets:</label>
+                <button type="button" id="load-streets-btn" onclick="loadStreets()">Load Streets</button>
             </div>
         </form>
     </div>
@@ -149,41 +150,14 @@
                             style: function (feature) {
                                 return {
                                     color: 'red', // Color de las rutas
-                                    weight: 2,    // Grosor de las rutas
-                                    opacity: 1    // Opacidad de las rutas
+                                    weight: 2,
+                                    opacity: 1
                                 };
                             }
                         }).addTo(map);
-                    })
-                    .catch(error => console.error('Error al cargar el archivo GeoJSON de calles:', error));
-            } else {
-                console.error("Comuna no encontrada:", comuna);
+                    });
             }
         }
-
-        // Cargar la ruta óptima (solo si el checkbox está marcado)
-        document.getElementById('toggleRoute').addEventListener('change', function () {
-            if (this.checked) {
-                // Lógica para cargar la ruta (en este ejemplo, no se tiene implementado)
-            }
-        });
-
-        // Cargar las estaciones de bomberos y calles según el estado del checkbox
-        document.getElementById('toggleFireStations').addEventListener('change', function () {
-            if (this.checked) {
-                // Mostrar estaciones de bomberos
-            } else {
-                // Ocultar estaciones de bomberos
-            }
-        });
-
-        document.getElementById('toggleStreets').addEventListener('change', function () {
-            if (this.checked) {
-                loadStreets();
-            } else {
-                // Eliminar las calles del mapa
-            }
-        });
     </script>
 </body>
 </html>
