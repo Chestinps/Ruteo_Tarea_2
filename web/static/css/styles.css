@@ -1,9 +1,8 @@
-/* Estilos generales */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffe5e5; /* Fondo con tono suave rojo claro */
+    background-color: #ffe5e5;
     color: #333;
 }
 
@@ -17,10 +16,10 @@ h1 {
 }
 
 .top-bar {
-    background-color: #b22222; /* Rojo intenso */
+    background-color: #b22222;
     padding: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #ffcc00; /* Amarillo para detalle */
+    border-bottom: 3px solid #ffcc00;
     color: #ffffff;
 }
 
@@ -36,10 +35,10 @@ form {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: space-between;
-    background-color: #fff4f4; /* Fondo claro */
+    background-color: #fff4f4;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #b22222; /* Rojo borde */
+    border: 1px solid #b22222;
 }
 
 .form-row label {
@@ -52,7 +51,7 @@ form {
 input, select {
     flex: 2;
     padding: 8px;
-    border: 1px solid #ffcc00; /* Amarillo */
+    border: 1px solid #ffcc00;
     border-radius: 5px;
     font-size: 14px;
     background-color: #fff;
@@ -73,7 +72,7 @@ button {
 }
 
 button:hover {
-    background-color: #ff4500; /* Rojo más brillante */
+    background-color: #ff4500;
 }
 
 #map {
@@ -109,7 +108,39 @@ button:hover {
     margin-right: 5px;
 }
 
-/* Detalles adicionales */
+.dropdown-menu {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    background-color: #ffffff;
+    border: 1px solid #b22222;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    z-index: 1000;
+}
+
+.dropdown-menu h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #b22222;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 5px;
+}
+
+.dropdown-menu label {
+    margin-bottom: 5px;
+    display: block;
+    cursor: pointer;
+    color: #b22222;
+}
+
+.dropdown-menu input {
+    margin-right: 5px;
+}
+
 a {
     color: #b22222;
     text-decoration: none;

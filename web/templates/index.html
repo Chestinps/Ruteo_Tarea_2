@@ -10,33 +10,44 @@
 </head>
 <body>
     <header class="top-bar">
-        <h1>Fire Stations and Emergency Route Map</h1>
+        <h1>Mapa de Estaciones de Bomberos y Rutas de Emergencia</h1>
         <form id="coordinate-form">
             <div class="form-row">
-                <label for="comuna-select">Select Comuna:</label>
+                <label for="comuna-select">Elegir Comuna:</label>
                 <select id="comuna-select" name="comuna-select">
                     <option value="cerrillos">Cerrillos</option>
                     <option value="cerro_navia">Cerro Navia</option>
                     <option value="conchali">Conchalí</option>
                 </select>
-                <button type="button" id="load-streets-btn" onclick="loadStreets()">Load Streets</button>
+                <button type="button" id="load-streets-btn" onclick="loadStreets()">Cargar calles</button>
             </div>
         </form>
+        <div id="dropdown-menu" class="dropdown-menu">
+            <h2>Metadata</h2>
+            <label><input type="checkbox" id="toggleFireStations" checked> Estaciones de Bomberos</label>
+            <label><input type="checkbox" id="toggleHydrants" checked> Grifos</label>
+            <label><input type="checkbox" id="toggleSpeedBumps" checked> Lomos de Toro</label>
+            <label><input type="checkbox" id="toggleStreets" checked> Calles</label>
+            <h2>Rutas</h2>
+            <label><input type="checkbox" id="toggleRouteDijkstra" checked> Ruta con Dijkstra</label>
+            <label><input type="checkbox" id="toggleRouteAStar" checked> Ruta con CPLEX</label>
+            <label><input type="checkbox" id="toggleRouteCPLEX" checked> Ruta con Metadata</label>
+            <label><input type="checkbox" id="toggleRouteMetaheuristic" checked> Ruta con Metaheurística</label>
+        </div>
     </header>
 
     <main>
         <!-- Mapa -->
         <div id="map"></div>
-
-        <!-- Control de capas (layer-control) -->
-        <div class="layer-control">
-            <label><input type="checkbox" id="toggleFireStations" checked> Estaciones de Bomberos</label>
-            <label><input type="checkbox" id="toggleStreets" checked> Calles de la Comuna Seleccionada</label>
-            <label><input type="checkbox" id="toggleRoute" checked> Ruta Óptima</label>
-        </div>
     </main>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script>
+        document.getElementById('layer-control-btn').addEventListener('click', () => {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
