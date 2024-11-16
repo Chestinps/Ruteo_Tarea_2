@@ -1,5 +1,13 @@
 # Ignorar la carpeta db_data donde está la base de datos
 db/db_data/
+venv/
+env/
+Amenazas/*.geojson
+Amenazas/*.json
+Infraestructura/*.geojson
+Infraestructura/*.json
+Metadata/*.geojson
+Metadata/*.json
 
 # Ignorar otros archivos temporales o innecesarios
 *.log
