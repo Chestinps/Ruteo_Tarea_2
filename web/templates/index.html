@@ -5,145 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Stations Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="top-bar">
+    <header class="top-bar">
+        <h1>Fire Stations and Emergency Route Map</h1>
         <form id="coordinate-form">
-            <div class="form-row">
-                <label for="source-latitude">Source Latitude:</label>
-                <input type="text" id="source-latitude" name="source-latitude" required>
-                <label for="source-longitude">Source Longitude:</label>
-                <input type="text" id="source-longitude" name="source-longitude" required>
-            </div>
-            <div class="form-row">
-                <label for="destination-latitude">Destination Latitude:</label>
-                <input type="text" id="destination-latitude" name="destination-latitude" required>
-                <label for="destination-longitude">Destination Longitude:</label>
-                <input type="text" id="destination-longitude" name="destination-longitude" required>
-            </div>
             <div class="form-row">
                 <label for="comuna-select">Select Comuna:</label>
                 <select id="comuna-select" name="comuna-select">
                     <option value="cerrillos">Cerrillos</option>
                     <option value="cerro_navia">Cerro Navia</option>
                     <option value="conchali">Conchalí</option>
-                    <!-- (resto de las opciones de comunas) -->
                 </select>
                 <button type="button" id="load-streets-btn" onclick="loadStreets()">Load Streets</button>
             </div>
         </form>
-    </div>
-    
-    <h1>Fire Stations and Emergency Route Map</h1>
+    </header>
 
-    <!-- Mapa -->
-    <div id="map" style="height: 600px;"></div>
+    <main>
+        <!-- Mapa -->
+        <div id="map"></div>
 
-    <!-- Control de capas (layer-control) -->
-    <div class="layer-control">
-        <label><input type="checkbox" id="toggleFireStations" checked> Estaciones de Bomberos</label><br>
-        <label><input type="checkbox" id="toggleStreets" checked> Calles de la Comuna Seleccionada</label><br>
-        <label><input type="checkbox" id="toggleRoute" checked> Ruta Óptima</label>
-    </div>
+        <!-- Control de capas (layer-control) -->
+        <div class="layer-control">
+            <label><input type="checkbox" id="toggleFireStations" checked> Estaciones de Bomberos</label>
+            <label><input type="checkbox" id="toggleStreets" checked> Calles de la Comuna Seleccionada</label>
+            <label><input type="checkbox" id="toggleRoute" checked> Ruta Óptima</label>
+        </div>
+    </main>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
-    <script>
-        // Inicializar el mapa
-        var map = L.map('map').setView([-33.45, -70.65], 10); // Coordenadas de Santiago
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Variables para almacenar las capas de estaciones de bomberos, calles y ruta
-        let fireStationsLayer = null;
-        let streetsLayer = null;
-        let routeLayer = null;
-
-        // Cargar datos de estaciones de bomberos
-        function loadFireStations() {
-            fetch('/data/fire_stations')
-                .then(response => response.json())
-                .then(data => {
-                    fireStationsLayer = L.geoJSON(data, {
-                        onEachFeature: function (feature, layer) {
-                            layer.bindPopup(feature.properties.name || "Estación de Bomberos");
-                        }
-                    }).addTo(map);
-                })
-                .catch(error => console.error("Error loading fire stations:", error));
-        }
-
-        // Alternar la visibilidad de las estaciones de bomberos
-        document.getElementById('toggleFireStations').addEventListener('change', function () {
-            if (this.checked) {
-                if (!fireStationsLayer) {
-                    loadFireStations();
-                } else {
-                    map.addLayer(fireStationsLayer);
-                }
-            } else {
-                if (fireStationsLayer) {
-                    map.removeLayer(fireStationsLayer);
-                }
-            }
-        });
-
-        if (document.getElementById('toggleFireStations').checked) {
-            loadFireStations();
-        }
-
-        // Función para cargar calles de la comuna seleccionada
-        function loadStreets() {
-            const comuna = document.getElementById('comuna-select').value;
-            const file = `/data/streets_${comuna}`;
-
-            fetch(file)
-                .then(response => response.json())
-                .then(data => {
-                    if (streetsLayer) {
-                        map.removeLayer(streetsLayer);
-                    }
-                    streetsLayer = L.geoJSON(data, {
-                        style: { color: 'red', weight: 2, opacity: 1 }
-                    }).addTo(map);
-                })
-                .catch(error => console.error("Error loading streets:", error));
-        }
-
-        // Variables para el marcador de emergencia y la capa de ruta
-        let emergencyMarker = null;
-
-        // Evento click en el mapa para capturar coordenadas y mostrar marcador de "Emergencia"
-        map.on('click', function (e) {
-            const coords = e.latlng;
-
-            if (emergencyMarker) {
-                map.removeLayer(emergencyMarker);
-            }
-
-            emergencyMarker = L.marker([coords.lat, coords.lng]).addTo(map)
-                .bindPopup("Emergencia").openPopup();
-
-            // Enviar coordenadas al servidor y solicitar la ruta
-            fetch('/set_emergency', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ latitude: coords.lat, longitude: coords.lng })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (routeLayer) {
-                    map.removeLayer(routeLayer);
-                }
-                routeLayer = L.geoJSON(data, {
-                    style: { color: 'blue', weight: 4, opacity: 0.7 }
-                }).addTo(map);
-            })
-            .catch(error => console.error("Error calculating route:", error));
-        });
-    </script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 </body>
 </html>
