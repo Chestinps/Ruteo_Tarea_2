@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Stations Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -13,13 +12,56 @@
         <h1>Mapa de Estaciones de Bomberos y Rutas de Emergencia</h1>
         <form id="coordinate-form">
             <div class="form-row">
+                <label for="source-latitude">Latitud de Origen:</label>
+                <input type="text" id="source-latitude" name="source-latitude" required>
+                <label for="source-longitude">Longitud de Origen:</label>
+                <input type="text" id="source-longitude" name="source-longitude" required>
+            </div>
+            <div class="form-row">
+                <label for="destination-latitude">Latitud de Destino:</label>
+                <input type="text" id="destination-latitude" name="destination-latitude" required>
+                <label for="destination-longitude">Longitud de Destino:</label>
+                <input type="text" id="destination-longitude" name="destination-longitude" required>
+            </div>
+            <div class="form-row">
                 <label for="comuna-select">Elegir Comuna:</label>
                 <select id="comuna-select" name="comuna-select">
+                    <!-- Opciones de comuna -->
                     <option value="cerrillos">Cerrillos</option>
                     <option value="cerro_navia">Cerro Navia</option>
                     <option value="conchali">Conchalí</option>
+                    <option value="el_bosque">El Bosque</option>
+                    <option value="estacion_central">Estación Central</option>
+                    <option value="huechuraba">Huechuraba</option>
+                    <option value="independencia">Independencia</option>
+                    <option value="la_cisterna">La Cisterna</option>
+                    <option value="la_florida">La Florida</option>
+                    <option value="la_granja">La Granja</option>
+                    <option value="la_pintana">La Pintana</option>
+                    <option value="la_reina">La Reina</option>
+                    <option value="las_condes">Las Condes</option>
+                    <option value="lo_barnechea">Lo Barnechea</option>
+                    <option value="lo_espejo">Lo Espejo</option>
+                    <option value="lo_prado">Lo Prado</option>
+                    <option value="macul">Macul</option>
+                    <option value="maipu">Maipú</option>
+                    <option value="ñunoa">Ñuñoa</option>
+                    <option value="pedro_aguirre_cerda">Pedro Aguirre Cerda</option>
+                    <option value="penalolen">Peñalolén</option>
+                    <option value="providencia">Providencia</option>
+                    <option value="pudahuel">Pudahuel</option>
+                    <option value="puente_alto">Puente Alto</option>
+                    <option value="quilicura">Quilicura</option>
+                    <option value="quinta_normal">Quinta Normal</option>
+                    <option value="recoleta">Recoleta</option>
+                    <option value="renca">Renca</option>
+                    <option value="san_joaquin">San Joaquín</option>
+                    <option value="san_miguel">San Miguel</option>
+                    <option value="san_ramon">San Ramón</option>
+                    <option value="santiago">Santiago</option>
+                    <option value="vitacura">Vitacura</option>
                 </select>
-                <button type="button" id="load-streets-btn" onclick="loadStreets()">Cargar calles</button>
+                <button type="button" id="load-streets-btn" onclick="loadStreets()">Cargar Calles</button>
             </div>
         </form>
         <div id="dropdown-menu" class="dropdown-menu">
@@ -38,11 +80,9 @@
             <label><input type="checkbox" id="toggleRouteMetaheuristic" checked> Ruta con Metaheurística</label>
         </div>
     </header>
-
-    <main>
-        <!-- Mapa -->
-        <div id="map"></div>
-    </main>
+        
+    <!-- Mapa -->
+    <div id="map" style="height: 600px;"></div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>

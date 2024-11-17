@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, send_from_directory, render_template, jsonify, request
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
@@ -11,8 +11,12 @@ DB_CONFIG = {
     'user': 'admin',
     'password': 'admin123',
     'host': 'localhost',
-    'port': '5433'
+    'port': '5432'
 }
+# Ruta para servir archivos de la carpeta "data"
+@app.route('/data/<path:filename>')
+def data(filename):
+    return send_from_directory('data', filename)
 
 # Ruta para servir la página principal
 @app.route('/')
