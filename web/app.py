@@ -66,6 +66,91 @@ def fire_stations():
     except Exception as e:
         print(f"Error loading fire stations from database: {e}")
         return jsonify({'error': 'Unable to load fire stations data'}), 500
+    
+
+@app.route('/data/grifos')
+def grifos():
+    try:
+        # Conectar a la base de datos y obtener las estaciones de bomberos
+        conn = psycopg2.connect(**DB_CONFIG)
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+
+        # Consulta para obtener todas las estaciones de bomberos
+        cur.execute("""
+            SELECT id, lat, lon
+            FROM grifos;
+        """)
+        grifos = cur.fetchall()
+
+        # Convertir a formato GeoJSON
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [grifo['lon'], grifo['lat']]
+                    },
+                    "properties": {
+                        "id": grifo['id']
+                    }
+                }
+                for grifo in grifos
+            ]
+        }
+
+        cur.close()
+        conn.close()
+
+        print("Grifos data loaded successfully.")
+        return jsonify(geojson)
+
+    except Exception as e:
+        print(f"Error loading grifos from database: {e}")
+        return jsonify({'error': 'Unable to load grifos data'}), 500
+    
+@app.route('/data/lomos')
+def lomos():
+    try:
+        # Conectar a la base de datos y obtener las estaciones de bomberos
+        conn = psycopg2.connect(**DB_CONFIG)
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+
+        # Consulta para obtener todas las estaciones de bomberos
+        cur.execute("""
+            SELECT id, lat, lon
+            FROM lomos;
+        """)
+        lomos = cur.fetchall()
+
+        # Convertir a formato GeoJSON
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [lomo['lon'], lomo['lat']]
+                    },
+                    "properties": {
+                        "id": lomo['id']
+                    }
+                }
+                for lomo in lomos
+            ]
+        }
+
+        cur.close()
+        conn.close()
+
+        print("Lomos data loaded successfully.")
+        return jsonify(geojson)
+
+    except Exception as e:
+        print(f"Error loading lomos from database: {e}")
+        return jsonify({'error': 'Unable to load lomos data'}), 500
 
 # Ruta para recibir las coordenadas de emergencia y calcular la ruta óptima
 @app.route('/set_emergency', methods=['POST'])

@@ -7,6 +7,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Variables para almacenar las capas de estaciones de bomberos, calles y ruta
 let fireStationsLayer = null;
+let grifosLayer = null;
+let lomosLayer = null;
 let streetsLayer = null;
 let routeLayer = null;
 
@@ -47,6 +49,26 @@ const streetsFiles = {
     "vitacura": '/data/streets_vitacura.geojson'
 };        
 
+const grifoIcon = L.icon({
+    iconUrl: '/static/img/grifo.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+
+const lomoIcon = L.icon({
+    iconUrl: '/static/img/lomo.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+
+const estacionIcon = L.icon({
+    iconUrl: '/static/img/station.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
 
 
 // Cargar datos de estaciones de bomberos
@@ -55,6 +77,9 @@ function loadFireStations() {
         .then(response => response.json())
         .then(data => {
             fireStationsLayer = L.geoJSON(data, {
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, { icon: estacionIcon }); // Usa el ícono personalizado
+                },
                 onEachFeature: function (feature, layer) {
                     layer.bindPopup(feature.properties.name || "Estación de Bomberos");
                 }
@@ -80,6 +105,75 @@ document.getElementById('toggleFireStations').addEventListener('change', functio
 
 if (document.getElementById('toggleFireStations').checked) {
     loadFireStations();
+}
+
+
+function loadGrifos() {
+    fetch('/data/grifos')
+        .then(response => response.json())
+        .then(data => {
+            grifosLayer = L.geoJSON(data, {
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, { icon: grifoIcon });
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(feature.properties.name || "Grifo");
+                }
+            }).addTo(map);
+        })
+        .catch(error => console.error("Error loading grifos:", error));
+}
+
+document.getElementById('toggleGrifos').addEventListener('change', function () {
+    if (this.checked) {
+        if (!grifosLayer) {
+            loadGrifos();
+        } else {
+            map.addLayer(grifosLayer);
+        }
+    } else {
+        if (grifosLayer) {
+            map.removeLayer(grifosLayer);
+        }
+    }
+});
+
+if (document.getElementById('toggleGrifos').checked) {
+    loadGrifos();
+}
+
+function loadLomos() {
+    fetch('/data/lomos')
+        .then(response => response.json())
+        .then(data => {
+            lomosLayer = L.geoJSON(data, {
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, { icon: lomoIcon });
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(feature.properties.name || "Lomo de Toro");
+                }
+            }).addTo(map);
+        })
+        .catch(error => console.error("Error loading lomos:", error));
+}
+
+document.getElementById('toggleLomos').addEventListener('change', function () {
+    if (this.checked) {
+        if (!lomosLayer) {
+            loadLomos();
+        } else {
+            map.addLayer(lomosLayer);
+        }
+    } else {
+        if (lomosLayer) {
+            map.removeLayer(lomosLayer);
+        }
+    }
+});
+
+if (document.getElementById('toggleLomos').checked) {
+    loadLomos();
 }
 
 // Función para cargar calles de la comuna seleccionada
