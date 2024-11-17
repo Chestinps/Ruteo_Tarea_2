@@ -64,6 +64,11 @@
                 </select>
                 <button type="button" id="load-streets-btn" onclick="loadStreets()">Cargar Calles</button>
             </div>
+            <div class="form-row">
+                <label for="risk-level">Nivel de Riesgo:</label>
+                <input type="range" id="risk-level" name="risk-level" min="0" max="10" value="5" oninput="document.getElementById('risk-value').innerText = this.value">
+                <span id="risk-value">5</span>
+            </div>
         </form>
         <div id="dropdown-menu" class="dropdown-menu">
             <h2>Metadata</h2>

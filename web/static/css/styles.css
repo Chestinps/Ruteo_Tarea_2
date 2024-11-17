@@ -48,6 +48,16 @@ form {
     color: #b22222;
 }
 
+.form-row input[type="range"] {
+    margin: 0 10px;
+    flex-grow: 1;
+}
+
+.form-row span {
+    font-weight: bold;
+    color: #b22222;
+}
+
 input, select {
     flex: 2;
     padding: 8px;
