@@ -1,7 +1,6 @@
 import json
 import psycopg2
 import os
-
 def cargar_lomos(cursor):
     # Ruta del archivo GeoJSON
     ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Amenazas', 'reductores_velocidad.geojson')
@@ -165,9 +164,6 @@ def cargar_trafico(cursor):
     except Exception as e:
         print(f"Ocurrió un error: {e}")
 
-import os
-import json
-
 def cargar_tipos_calles(cursor):
     ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Metadata', 'calles.geojson')
     try:
@@ -190,7 +186,14 @@ def cargar_tipos_calles(cursor):
                             street_name = properties.get('street_name')
                             highway_type = properties.get('highway_type')
                             highway_value = properties.get('highway_value')
+
+                            # Validar el valor de lanes (número de carriles)
                             lanes = properties.get('lanes')
+                            if lanes is not None:
+                                try:
+                                    lanes = int(lanes)  # Convertir a entero
+                                except ValueError:
+                                    lanes = None  # Si no es un número, usar NULL
 
                             # Validar y convertir geometría a LINESTRING si es del tipo correcto
                             geom_type = geometry.get('type')
