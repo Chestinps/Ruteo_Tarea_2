@@ -12,6 +12,7 @@ let lomosLayer = null;
 let streetsLayer = null;
 let routeLayer = null;
 let routeMetadata = null;
+let routeMetaheuristica = null;
 
 // Lista de archivos GeoJSON de calles de las comunas
 const streetsFiles = {
@@ -254,4 +255,19 @@ map.on('click', function (e) {
         }).addTo(map);
     })
     .catch(error => console.error("Error calculating route metadata:", error));
+
+    fetch('/set_route_metaheuristica', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ latitude: coords.lat, longitude: coords.lng })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (routeMetaheuristica) {
+            map.removeLayer(routeMetaheuristica);
+        }
+        routeMetaheuristica = L.geoJSON(data, {
+            style: { color: 'orange', weight: 4, opacity: 0.7 }
+        }).addTo(map);
+    })
 });

@@ -346,5 +346,119 @@ def set_route_metadata():
         return jsonify({'error': 'Unable to calculate route'}), 500
 
 
+@app.route('/set_route_metaheuristica', methods=['POST'])
+def set_route_metaheuristica():
+    data = request.get_json()
+    emergency_lat = data.get('latitude')
+    emergency_lng = data.get('longitude')
+
+    try:
+        # Conectar a la base de datos
+        conn = psycopg2.connect(**DB_CONFIG)
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+
+        # Encontrar la estación de bomberos más cercana
+        cur.execute("""
+            SELECT id, ST_SetSRID(ST_MakePoint(lon, lat), 4326) AS geom
+            FROM estaciones_bomberos
+            ORDER BY ST_Distance(ST_SetSRID(ST_MakePoint(%s, %s), 4326), ST_SetSRID(ST_MakePoint(lon, lat), 4326))
+            LIMIT 1;
+        """, (emergency_lng, emergency_lat))
+        fire_station = cur.fetchone()
+
+        if not fire_station:
+            return jsonify({'error': 'No fire station found'}), 500
+
+        # Nodo más cercano a la estación de bomberos
+        cur.execute("""
+            SELECT id AS node_id
+            FROM nodes
+            ORDER BY geom <-> %s
+            LIMIT 1;
+        """, (fire_station['geom'],))
+        station_node = cur.fetchone()
+
+        if not station_node:
+            return jsonify({'error': 'No station node found'}), 500
+
+        # Nodo más cercano al punto de emergencia
+        cur.execute("""
+            SELECT id AS node_id
+            FROM nodes
+            ORDER BY geom <-> ST_SetSRID(ST_MakePoint(%s, %s), 4326)
+            LIMIT 1;
+        """, (emergency_lng, emergency_lat))
+        emergency_node = cur.fetchone()
+
+        if not emergency_node:
+            return jsonify({'error': 'No emergency node found'}), 500
+
+        # Encontrar el hidrante más cercano al nodo de la red
+        cur.execute("""
+            SELECT g.id, g.geom, n.id AS node_id
+            FROM grifos g
+            JOIN nodes n ON n.geom && g.geom
+            ORDER BY ST_Distance(n.geom, ST_SetSRID(ST_MakePoint(%s, %s), 4326))
+            LIMIT 1;
+        """, (emergency_lng, emergency_lat))
+        hydrant = cur.fetchone()
+
+        if not hydrant:
+            return jsonify({'error': 'No hydrant found'}), 500
+
+        hydrant_node_id = hydrant['node_id']
+
+        # Calcular la ruta desde la estación de bomberos al hidrante
+        cur.execute("""
+            SELECT route.*, ST_AsGeoJSON(e.geom)::json AS geom
+            FROM pgr_dijkstra(
+                'SELECT id, source, target, cost, reverse_cost FROM edges',
+                %s, %s, directed := true
+            ) AS route
+            JOIN edges AS e ON route.edge = e.id;
+        """, (station_node['node_id'], hydrant_node_id))
+        to_hydrant_route = cur.fetchall()
+
+        # Calcular la ruta desde el hidrante al punto de emergencia
+        cur.execute("""
+            SELECT route.*, ST_AsGeoJSON(e.geom)::json AS geom
+            FROM pgr_dijkstra(
+                'SELECT id, source, target, cost, reverse_cost FROM edges',
+                %s, %s, directed := true
+            ) AS route
+            JOIN edges AS e ON route.edge = e.id;
+        """, (hydrant_node_id, emergency_node['node_id']))
+        to_emergency_route = cur.fetchall()
+
+        # Combinar rutas
+        full_route = to_hydrant_route + to_emergency_route
+
+        # Formatear como GeoJSON
+        route_geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": row['geom'],  # Ahora en formato JSON
+                    "properties": {
+                        "seq": row['seq'],
+                        "cost": row['cost'],
+                        "agg_cost": row['agg_cost']
+                    }
+                } for row in full_route
+            ]
+        }
+
+        cur.close()
+        conn.close()
+
+        return jsonify(route_geojson)
+
+    except Exception as e:
+        print(f"Error calculating route: {e}")
+        return jsonify({'error': 'Unable to calculate route'}), 500
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
