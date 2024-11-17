@@ -1,30 +1,60 @@
-# Pasos
+# Pasos para Configurar y Ejecutar el Proyecto
 
-## Paso 1
-Para iniciar la base de datos, se debe ingresar el comando:
-sudo docker-compose up -d
+## Paso 1: Creación del Ambiente Virtual e Instalación de Dependencias
+1. **Crear el ambiente virtual:**  
+   `python3 -m venv venv`
 
-Luego, para detener el servicio de PostgreSQL, usa:
-sudo systemctl stop postgresql
+2. **Activar el ambiente virtual:**  
+   `source venv/bin/activate`
 
-Accede al contenedor de PostGIS con el siguiente comando:
-sudo docker exec -it postgis-container bash
+3. **Instalar las dependencias desde `requirements.txt`:**  
+   `pip install -r requirements.txt`
 
-Para conectarte a la base de datos `ruteo_db`, utiliza:
-psql -U admin -d ruteo_db
+---
 
-O también puedes hacerlo con este comando que accede directamente al contenedor y a la base de datos:
-sudo docker exec -it postgis-container psql -U admin -d ruteo_db
+## Paso 2: Configuración y Uso de la Base de Datos
+1. **Iniciar la Base de Datos con Docker:**  
+   - Para iniciar la base de datos:  
+     `sudo docker-compose up -d`
+   - Para detener el servicio de PostgreSQL en el sistema (si está corriendo en segundo plano):  
+     `sudo systemctl stop postgresql`
 
-Crear las tablas, debe ingresar a la carpeta scripts y ejecutar este comando:
-psql -U admin -d ruteo_db -h localhost -p 5432 -f tablas.sql
+2. **Acceder al Contenedor de PostGIS:**  
+   - Accede al contenedor:  
+     `sudo docker exec -it postgis-container bash`
+   - Conéctate a la base de datos `ruteo_db`:  
+     `psql -U admin -d ruteo_db`
+   - Alternativamente, puedes usar este comando para conectarte directamente al contenedor y a la base de datos:  
+     `sudo docker exec -it postgis-container psql -U admin -d ruteo_db`
 
-Para ver las tablas disponibles, ingresa:
-\dt
+3. **Crear las Tablas:**  
+   - Navega a la carpeta `scripts` y ejecuta el siguiente comando:  
+     `psql -U admin -d ruteo_db -h localhost -p 5432 -f tablas.sql`  
+     *Nota: La contraseña del usuario `admin` es `admin123`.*
 
-Para salir de la base de datos , ingresa: 
-\q
+4. **Verificar Tablas y Salir:**  
+   - Para listar las tablas disponibles:  
+     `\dt`
+   - Para salir de la base de datos:  
+     `\q`
 
-## Paso 2
+---
 
-## Paso 3
+## Paso 3: Generación de Archivos JSON
+1. Ejecuta los siguientes scripts en orden:  
+   - `calles.py`  
+   - `nodos.py`
+
+2. Ingresa a la base de datos y crea el siguiente índice para optimizar la búsqueda:  
+   `CREATE INDEX idx_nodes_lat_lon ON nodes(lat, lon);`
+
+3. Ejecuta el script:  
+   - `edges.py`
+4. Ejecuta los siguientes scripts en orden:  
+   - `appy.py`  
+   - `cargar_datos.py`
+---
+
+## Paso 4: Montar la Web
+1. Ejecuta el script `overpass_calles.py`.
+2. Ejecuta el script `appy.py` para iniciar la web.
