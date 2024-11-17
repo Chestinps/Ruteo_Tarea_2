@@ -48,6 +48,7 @@ const streetsFiles = {
 };        
 
 
+
 // Cargar datos de estaciones de bomberos
 function loadFireStations() {
     fetch('/data/fire_stations')
