@@ -11,6 +11,7 @@ let grifosLayer = null;
 let lomosLayer = null;
 let streetsLayer = null;
 let routeLayer = null;
+let routeMetadata = null;
 
 // Lista de archivos GeoJSON de calles de las comunas
 const streetsFiles = {
@@ -220,6 +221,7 @@ map.on('click', function (e) {
     emergencyMarker = L.marker([coords.lat, coords.lng]).addTo(map)
         .bindPopup("Emergencia").openPopup();
 
+    // Llamada a la ruta /set_emergency
     fetch('/set_emergency', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -235,4 +237,21 @@ map.on('click', function (e) {
         }).addTo(map);
     })
     .catch(error => console.error("Error calculating route:", error));
+
+    // Llamada a la ruta /set_route_metadata
+    fetch('/set_route_metadata', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ latitude: coords.lat, longitude: coords.lng })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (routeMetadata) {
+            map.removeLayer(routeMetadata);
+        }
+        routeMetadata = L.geoJSON(data, {
+            style: { color: 'green', weight: 4, opacity: 0.7 }
+        }).addTo(map);
+    })
+    .catch(error => console.error("Error calculating route metadata:", error));
 });
