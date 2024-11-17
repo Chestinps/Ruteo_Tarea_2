@@ -7,7 +7,7 @@ import json
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Definir la ruta completa para el archivo JSON
-json_path = os.path.join(current_dir, 'reductores_velocidad.json')
+json_path = os.path.join(current_dir, 'reductores_velocidad.geojson')
 
 # Definir la URL de la API de Overpass
 overpass_url = "http://overpass-api.de/api/interpreter"
@@ -31,19 +31,38 @@ if response.status_code == 200:
     root = ET.fromstring(xml_data)
 
     # Crear una lista para almacenar los datos procesados
-    bumps = []
+    bumps = {
+        "type": "FeatureCollection",
+        "features": []
+    }
 
     # Recorrer los nodos en el XML
     for node in root.findall('node'):
-        bump = {
-            "id": node.get("id"),
-            "lat": node.get("lat"),
-            "lon": node.get("lon"),
-            "traffic_calming": "bump"
+        # Extraer información del nodo
+        bump_id = node.get("id")
+        lat = node.get("lat")
+        lon = node.get("lon")
+        
+        # Crear la geometría WKT (Point)
+        geom_point = f"POINT({lon} {lat})"
+        
+        # Crear un feature para cada bump
+        feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [float(lon), float(lat)]  # Coordenadas como lista [lon, lat]
+            },
+            "properties": {
+                "id": bump_id,
+                "traffic_calming": "bump"
+            }
         }
-        bumps.append(bump)
 
-    # Guardar los datos procesados en un archivo JSON en la misma carpeta que el script
+        # Añadir el feature a la lista de features
+        bumps["features"].append(feature)
+
+    # Guardar los datos procesados en un archivo GeoJSON
     with open(json_path, 'w') as json_file:
         json.dump(bumps, json_file, indent=4)
 

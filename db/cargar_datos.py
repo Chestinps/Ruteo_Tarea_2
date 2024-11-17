@@ -3,18 +3,53 @@ import psycopg2
 import os
 
 def cargar_lomos(cursor):
-    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Amenazas', 'reductores_velocidad.json')
+    # Ruta del archivo GeoJSON
+    ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Amenazas', 'reductores_velocidad.geojson')
+    
     try:
         with open(ruta_archivo, 'r') as json_file:
             data = json.load(json_file)
-            for item in data:
-                cursor.execute("""
-                    INSERT INTO lomos (osm_id, lat, lon, traffic_calming)
-                    VALUES (%s, %s, %s, %s);
-                """, (item["id"], item["lat"], item["lon"], item["traffic_calming"]))
+            
+            # Asegúrate de que 'features' esté en el json
+            if 'features' in data:
+                for item in data['features']:
+                    # Verifica que 'geometry' y 'properties' estén presentes
+                    if 'geometry' in item and 'properties' in item:
+                        lat = item['geometry']['coordinates'][1]  # Latitud
+                        lon = item['geometry']['coordinates'][0]  # Longitud
+                        osm_id = item['properties'].get('id', None)
+                        traffic_calming = item['properties'].get('traffic_calming', None)
+                        
+                        if lat is not None and lon is not None:
+                            # Crear la geometría de tipo Point usando WKT (Well-Known Text)
+                            geom_point = f"POINT({lon} {lat})"
+                            
+                            # Verificar si el osm_id ya existe en la tabla
+                            cursor.execute("""
+                                SELECT 1 FROM lomos WHERE osm_id = %s;
+                            """, (osm_id,))
+                            result = cursor.fetchone()
+                            
+                            # Si osm_id ya existe, no insertamos
+                            if result:
+                                print(f"Advertencia: El osm_id {osm_id} ya existe en la base de datos. No se insertará.")
+                            else:
+                                # Insertar en la base de datos
+                                cursor.execute("""
+                                    INSERT INTO lomos (osm_id, lat, lon, traffic_calming, geom)
+                                    VALUES (%s, %s, %s, %s, ST_SetSRID(ST_GeomFromText(%s), 4326));
+                                """, (osm_id, lat, lon, traffic_calming, geom_point))
+                        else:
+                            print(f"Advertencia: Coordenadas faltantes para el elemento con id {osm_id}")
+            else:
+                print("Error: El archivo GeoJSON no contiene la clave 'features'.")
+    
     except FileNotFoundError:
         print(f"Error: No se encontró el archivo en la ruta: {ruta_archivo}")
-
+    except json.JSONDecodeError:
+        print("Error: El archivo JSON está mal formado.")
+    except Exception as e:
+        print(f"Ocurrió un error al cargar lomos: {e}")
 def cargar_accidentes(cursor):
     ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Amenazas', 'accidentes.json')
     try:
@@ -60,12 +95,35 @@ def cargar_grifos(cursor):
             data = json.load(json_file)
             for element in data['features']:
                 properties = element['properties']
-                cursor.execute("""
-                    INSERT INTO grifos (osm_id, lat, lon, tags)
-                    VALUES (%s, %s, %s, %s);
-                """, (properties.get("id"), element['geometry']['coordinates'][1], element['geometry']['coordinates'][0], json.dumps(properties)))
+                
+                # Extraer las coordenadas de lat y lon
+                lat = element['geometry']['coordinates'][1]
+                lon = element['geometry']['coordinates'][0]
+                
+                if lat is not None and lon is not None:
+                    # Convertir las coordenadas a geometría Point (WKT)
+                    geom_point = f"POINT({lon} {lat})"
+                    
+                    # Verificar si el osm_id ya existe en la tabla 'grifos'
+                    osm_id = properties.get("id")
+                    cursor.execute("""
+                        SELECT 1 FROM grifos WHERE osm_id = %s;
+                    """, (osm_id,))
+                    result = cursor.fetchone()
+                    
+                    # Si osm_id ya existe, omitir la inserción
+                    if not result:
+                        # Insertar en la base de datos, incluyendo la geometría como tipo Point
+                        cursor.execute("""
+                            INSERT INTO grifos (osm_id, lat, lon, tags, geom)
+                            VALUES (%s, %s, %s, %s, ST_SetSRID(ST_GeomFromText(%s), 4326));
+                        """, (osm_id, lat, lon, json.dumps(properties), geom_point))
     except FileNotFoundError:
         print(f"Error: No se encontró el archivo en la ruta: {ruta_archivo}")
+    except json.JSONDecodeError:
+        print("Error: El archivo JSON está mal formado.")
+    except Exception as e:
+        print(f"Ocurrió un error al cargar grifos: {e}")
 
 def cargar_trafico(cursor):
     # Construir la ruta del archivo
@@ -107,25 +165,26 @@ def cargar_trafico(cursor):
     except Exception as e:
         print(f"Ocurrió un error: {e}")
 
+import os
+import json
+
 def cargar_tipos_calles(cursor):
     ruta_archivo = os.path.join(os.path.dirname(__file__), '..', 'Metadata', 'calles.geojson')
     try:
         with open(ruta_archivo, 'r') as json_file:
             data = json.load(json_file)
 
-            # Imprimir solo la estructura de las claves y valores principales para depuración
-            if isinstance(data, dict):
-                print("Claves principales del archivo GeoJSON:", list(data.keys()))
-
-            # Verificar si data contiene una clave 'features', que es común en los archivos GeoJSON
+            # Verificar si 'data' contiene la clave 'features'
             if isinstance(data, dict) and 'features' in data:
                 features = data['features']
-                # Verificar si 'features' es una lista de diccionarios
                 if isinstance(features, list):
                     for feature in features:
-                        # Verificar si cada elemento en 'features' es un diccionario
+                        # Validar que cada 'feature' sea un diccionario y tenga claves necesarias
                         if isinstance(feature, dict):
                             properties = feature.get('properties', {})
+                            geometry = feature.get('geometry', {})
+
+                            # Obtener propiedades relevantes
                             way_id = properties.get('way_id')
                             nodes = properties.get('nodes', [])
                             street_name = properties.get('street_name')
@@ -133,14 +192,26 @@ def cargar_tipos_calles(cursor):
                             highway_value = properties.get('highway_value')
                             lanes = properties.get('lanes')
 
-                            # Insertar en la base de datos
-                            cursor.execute("""
-                                INSERT INTO tipos_calles (way_id, nodes, street_name, highway_type, highway_value, lanes)
-                                VALUES (%s, %s, %s, %s, %s, %s)
-                                ON CONFLICT (way_id) DO NOTHING;  -- Evita duplicados
-                            """, (way_id, nodes, street_name, highway_type, highway_value, lanes))
+                            # Validar y convertir geometría a LINESTRING si es del tipo correcto
+                            geom_type = geometry.get('type')
+                            coordinates = geometry.get('coordinates', [])
+
+                            if geom_type == "LineString" and isinstance(coordinates, list):
+                                # Convertir coordenadas en formato WKT LINESTRING
+                                geom_linestring = "LINESTRING(" + ", ".join(
+                                    f"{lon} {lat}" for lon, lat in coordinates
+                                ) + ")"
+
+                                # Insertar en la base de datos, incluyendo la geometría
+                                cursor.execute("""
+                                    INSERT INTO tipos_calles (way_id, nodes, street_name, highway_type, highway_value, lanes, geom)
+                                    VALUES (%s, %s, %s, %s, %s, %s, ST_GeomFromText(%s, 4326))
+                                    ON CONFLICT (way_id) DO NOTHING;  -- Evita duplicados
+                                """, (way_id, nodes, street_name, highway_type, highway_value, lanes, geom_linestring))
+                            else:
+                                print(f"Advertencia: Geometría no válida o faltante para el elemento con way_id {way_id}")
                         else:
-                            print(f"Advertencia: Se encontró un elemento no esperado en 'features': {feature}")
+                            print(f"Advertencia: Elemento inesperado en 'features': {feature}")
                 else:
                     print("Error: La clave 'features' no contiene una lista.")
             else:
