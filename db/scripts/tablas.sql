@@ -3,7 +3,8 @@ CREATE TABLE lomos (
     osm_id VARCHAR(255),  
     lat DOUBLE PRECISION,  
     lon DOUBLE PRECISION,  
-    traffic_calming VARCHAR(255)  
+    traffic_calming VARCHAR(255),
+    geom GEOMETRY(Point, 4326)  -- Nueva columna geométrica
 );
 
 CREATE TABLE accidentes (
@@ -27,7 +28,8 @@ CREATE TABLE grifos (
     osm_id VARCHAR(255),
     lat DOUBLE PRECISION,
     lon DOUBLE PRECISION,
-    tags JSONB
+    tags JSONB,
+    geom GEOMETRY(Point, 4326)  -- Nueva columna geométrica
 );
 
 CREATE TABLE trafico (
@@ -42,13 +44,15 @@ CREATE TABLE trafico (
 );
 
 CREATE TABLE tipos_calles (
-    way_id BIGINT PRIMARY KEY,
-    nodes BIGINT[],
-    street_name VARCHAR(255),
-    highway_type VARCHAR(255),
-    highway_value VARCHAR(255),
-    lanes VARCHAR(255)
+    way_id INTEGER PRIMARY KEY,
+    nodes TEXT[],
+    street_name TEXT,
+    highway_type TEXT,
+    highway_value TEXT,
+    lanes INTEGER,
+    geom geometry(LINESTRING, 4326)
 );
+
 
 CREATE TABLE nodes (
     id SERIAL PRIMARY KEY,
