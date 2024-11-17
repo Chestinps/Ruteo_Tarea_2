@@ -9,6 +9,7 @@ Infraestructura/*.json
 Metadata/*.geojson
 Metadata/*.json
 web/data/*.geojson
+db/scripts/*.json
 
 # Ignorar otros archivos temporales o innecesarios
 *.log
