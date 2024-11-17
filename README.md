@@ -57,4 +57,4 @@
 
 ## Paso 4: Montar la Web
 1. Ejecuta el script `overpass_calles.py`.
-2. Ejecuta el script `appy.py` para iniciar la web.
+2. Ejecuta el script `app.py` para iniciar la web.
